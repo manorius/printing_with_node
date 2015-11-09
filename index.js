@@ -3,11 +3,17 @@ var util = require("util");
 
 var five = require("johnny-five");
 var child_process = require('child_process');
+var app   = require('express')(); // Express App include
+var http = require('http').Server(app); // http server
+var bodyParser = require("body-parser"); // Body parser for fetch posted data
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // Body parser use JSON data
 
 // REMOVE ALL QUEUED PRINT JOBS 
-child_process.execFile('/usr/bin/cancel', ['-a', '-'], function(err, result) {
+/*child_process.execFile('/usr/bin/cancel', ['-a', '-'], function(err, result) {
     console.log(result)
-});
+});*/
 
 var faces = require('./faces');
 
@@ -29,12 +35,8 @@ var printOptions = [{
     "orientation-requested": 6,
     "media": "Custom.21x4cm",
     "ppi": 300
-}, {}, {
-    "orientation-requested": 6,
-    "media": "Custom.21x2cm",
-    "cpi": 10,
-    "lpi": 4
-}]
+}, {
+    "orientation-requested": 6,"media": "Custom.21x6cm","cpi": 5,"lpi": 1}]
 
 
 function printLine(txt, printOptions, type) {
@@ -55,6 +57,22 @@ function printLine(txt, printOptions, type) {
     });
 }
 
+// SERVER COMMUNICATION
+app.post('/',function(req,res){
+ res.send('received');
+    //rate = parseInt(req.query.rate,10);
+
+    // TRACE RESULTS
+    console.log(req.query.name);
+
+    console.log(req.query.address);
+    //echo -e "\aHello, world!" > /dev/usb/lp1
+
+});
+
+port = 3000;
+app.listen(port);
+console.log('Listening at http://localhost:' + port)
 
 /*
 // PRINTING IMAGES
@@ -72,9 +90,9 @@ var p = printer.getPrinter("EPSON_LQ_590");
 
 console.log(p.options['printer-state'] /*printer.correctPrinterinfo(p)*/ /*printer.getPrinterDriverOptions("EPSON_LQ_590")*/ );
 setInterval(function() {
-   printLine(faces.face[Math.round(Math.random() * faces.face.length)], printOptions[0], "TEXT")
+   printLine(faces.face[Math.round(Math.random() * faces.face.length)]+/*SSID*/ " --> MANCRIS s000sd sdd s", printOptions[2], "TEXT")
 }, 2000);
-
+//printLine("                   "+faces.face[Math.round(Math.random() * faces.face.length)], {"orientation-requested": 6,"media": "Custom.21x6cm","cpi": 5,"lpi": 1}, "TEXT")
 
 var board = new five.Board();
 
