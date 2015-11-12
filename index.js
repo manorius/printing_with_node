@@ -61,22 +61,23 @@ function printLine(txt, printOptions, type) {
 app.post('/',function(req,res){
  res.send('received');
     //rate = parseInt(req.query.rate,10);
-var ssid = req.body.SSID;
+// var ssid = req.body.SSID;
 
-    if(ssid!="") {
+//     if(ssid!="") {
 
-    // TRACE RESULTS
-        ssid = ( ssid.length > 23 )? ssid.substr(0,23):new Array(Math.floor((23-ssid.length)*0.5)).join(' ')+ssid;
-       // var mac  = req.body.mac; mac  = new Array(Math.floor((23-mac.length)*0.5)).join(' ')+mac;
-        var face = faces.face[Math.round(Math.random() * faces.face.length)]; face = new Array(Math.floor((23-face.length)*0.5)).join(' ')+face;
+//     // TRACE RESULTS
+//         ssid = ( ssid.length > 23 )? ssid.substr(0,23):new Array(Math.floor((23-ssid.length)*0.5)).join(' ')+ssid;
+//        // var mac  = req.body.mac; mac  = new Array(Math.floor((23-mac.length)*0.5)).join(' ')+mac;
+//         var face = faces.face[Math.round(Math.random() * faces.face.length)]; face = new Array(Math.floor((23-face.length)*0.5)).join(' ')+face;
     
-        // FINAL OUTPUT
-        var trace = "\n"+face+/*"\n"+mac+*/"\n"+ssid+"\n";
-       console.log(trace);
+//         // FINAL OUTPUT
+//         var trace = "\n"+face+/*"\n"+mac+*/"\n"+ssid+"\n";
+//        console.log(trace);
 
-   //printLine(trace, printOptions[2], "TEXT");
-    }
-
+//    //printLine(trace, printOptions[2], "TEXT");
+//     }
+var face = faces.face[Math.round(Math.random() * faces.face.length)]; face = new Array(Math.floor((23-face.length)*0.5)).join(' ')+face;
+printLine(face, printOptions[2], "TEXT");
 
 //    console.log(req.query.address);
     //echo -e "\aHello, world!" > /dev/usb/lp1
@@ -106,7 +107,7 @@ console.log(p.options['printer-state'] /*printer.correctPrinterinfo(p)*/ /*print
 //    printLine(faces.face[Math.round(Math.random() * faces.face.length)]+/*SSID*/ " --> MANCRIS s000sd sdd s", printOptions[2], "TEXT")
 // }, 10000);
 //printLine("                   "+faces.face[Math.round(Math.random() * faces.face.length)], {"orientation-requested": 6,"media": "Custom.21x6cm","cpi": 5,"lpi": 1}, "TEXT")
-
+/*
 var board = new five.Board();
 
 
@@ -132,7 +133,7 @@ board.on("ready", function() {
     sensor.scale(0, 1023).on("change", function() {
 
         sensorValue = this.value;
-//console.log(sensorValue);
+console.log(sensorValue);
         if (sensorValue > 270) {
 
             highValue++;
@@ -166,3 +167,4 @@ board.on("ready", function() {
 
     });
 })
+*/
